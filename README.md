@@ -19,3 +19,8 @@ Next.js 14 + Supabase + Vercel. L'ancienne maquette reste archivée dans `public
 3. Framework Preset Vercel : Next.js.
 4. Premier administrateur : après inscription, dans le SQL Editor :
    `update public.profiles set staff_role = 'admin' where id = (select id from auth.users where email = 'VOTRE_EMAIL');`
+
+## Lot 3 — Autocar
+Migration `supabase/migrations/0003_autocar.sql` (tests : `supabase/testing/03_autocar_test.sql`).
+Pages : `/autocar` (recherche), `/autocar/[id]` (plan des sièges), `/autocar/billets`, `/autocar/compagnie`, `/autocar/chauffeur`.
+Les autocars doivent être approuvés par l'équipe Transvia dans `/admin`. Commission 8 %, paiement par Wallet en séquestre jusqu'à l'arrivée.

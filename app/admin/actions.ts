@@ -32,3 +32,12 @@ export async function decideRole(formData: FormData) {
   if (error) done("error", error.message);
   done("ok", "Décision enregistrée.");
 }
+
+export async function approveVehicle(formData: FormData) {
+  const { error } = await createClient().rpc("bus_approve_vehicle", {
+    p_vehicle: String(formData.get("vehicle")), p_approved: formData.get("approve") === "yes",
+  });
+  revalidatePath("/admin");
+  if (error) done("error", error.message);
+  done("ok", "Décision sur le véhicule enregistrée.");
+}

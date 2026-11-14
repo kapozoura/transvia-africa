@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // Rafraîchit la session Supabase à chaque requête et protège les espaces
 // qui exigent d'être connecté. Si Supabase n'est pas encore configuré
 // (variables d'environnement absentes), le site reste consultable.
-const PROTECTED_PREFIXES = ["/compte", "/wallet", "/admin", "/covoiturage"];
+const PROTECTED_PREFIXES = ["/compte", "/wallet", "/admin", "/covoiturage", "/autocar"];
 const TEAM_PREFIXES = ["/admin"];
 
 export async function middleware(request: NextRequest) {
