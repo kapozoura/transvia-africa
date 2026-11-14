@@ -113,7 +113,7 @@ create index wallet_entries_profile_idx on public.wallet_entries (profile_id, id
 
 -- Journal inaltérable : aucune modification ni suppression, même par erreur.
 create or replace function public.wallet_entries_immutable() returns trigger
-language plpgsql as $$
+language plpgsql set search_path = public as $$
 begin
   raise exception 'Le journal du Wallet est inaltérable';
 end;
@@ -310,6 +310,8 @@ grant execute on function public.submit_identity(text, text),
 revoke execute on function public.staff_role_of(uuid) from authenticated;
 revoke execute on function public.wallet_post(uuid, bigint, wallet_entry_kind, text, uuid) from authenticated;
 revoke execute on function public.log_admin(text, uuid, text) from authenticated;
+revoke execute on function public.handle_new_user() from authenticated;
+revoke execute on function public.wallet_entries_immutable() from authenticated;
 
 -- ========================= RLS =========================
 
