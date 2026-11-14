@@ -20,3 +20,18 @@ export const fcfa = (n: number | null | undefined) =>
 
 export const configured = () =>
   Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+
+export const CITIES = ["Abidjan", "Bouaké", "Korhogo", "San Pédro", "Yamoussoukro"];
+
+export const BOOKING_STATUS_LABELS: Record<string, string> = {
+  en_attente: "En attente du conducteur",
+  confirmee: "Confirmée",
+  refusee: "Refusée (remboursée)",
+  annulee_passager: "Annulée par vous",
+  annulee_conducteur: "Annulée par le conducteur (remboursée)",
+  terminee: "Terminée",
+};
+
+// Les horaires sont saisis et affichés à l'heure d'Abidjan (GMT).
+export const fmtDate = (iso: string) =>
+  new Date(iso).toLocaleString("fr-FR", { timeZone: "Africa/Abidjan", dateStyle: "medium", timeStyle: "short" });
