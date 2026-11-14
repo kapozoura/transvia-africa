@@ -1,15 +1,16 @@
 import { createClient } from "@/lib/supabase/server";
 import { ROLE_LABELS } from "@/lib/roles";
-import { approveVehicle, decideIdentity, decideRole } from "./actions";
+import { approveVtcVehicle, approveVehicle, decideIdentity, decideRole } from "./actions";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage({ searchParams }: { searchParams: { ok?: string; error?: string } }) {
   const supabase = createClient();
-  const [{ data: ids }, { data: roles }, { data: vehicles }] = await Promise.all([
+  const [{ data: ids }, { data: roles }, { data: vehicles }, { data: vtcVehicles }] = await Promise.all([
     supabase.from("identity_checks").select("profile_id, doc_type, doc_number, submitted_at, profiles(full_name)").eq("status", "en_attente"),
     supabase.from("profile_roles").select("profile_id, role, documents, requested_at, profiles(full_name, id_verified)").eq("status", "en_attente"),
     supabase.from("bus_vehicles").select("id, plate, model, seats, bus_companies(name)").eq("approved", false),
+    supabase.from("vtc_vehicles").select("id, plate, model, category").eq("approved", false),
   ]);
   const name = (p: unknown) => (Array.isArray(p) ? p[0]?.full_name : (p as { full_name?: string } | null)?.full_name) ?? "—";
 
@@ -56,6 +57,16 @@ export default async function AdminPage({ searchParams }: { searchParams: { ok?:
           <form key={v.id} action={approveVehicle} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white p-4 shadow-sm">
             <input type="hidden" name="vehicle" value={v.id} />
             <p className="font-semibold">{v.plate} — {v.model} ({v.seats} places) — {(Array.isArray(v.bus_companies) ? v.bus_companies[0]?.name : (v.bus_companies as { name?: string } | null)?.name) ?? "—"}</p>
+            <button name="approve" value="yes" className="rounded bg-green-600 px-3 py-1 text-sm font-bold text-white">Approuver</button>
+          </form>
+        ))}
+      </section>
+      <section className="space-y-2">
+        <h2 className="font-bold">Véhicules VTC à approuver ({vtcVehicles?.length ?? 0})</h2>
+        {(vtcVehicles ?? []).map((v) => (
+          <form key={v.id} action={approveVtcVehicle} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white p-4 shadow-sm">
+            <input type="hidden" name="vehicle" value={v.id} />
+            <p className="font-semibold">{v.plate} — {v.model} ({v.category})</p>
             <button name="approve" value="yes" className="rounded bg-green-600 px-3 py-1 text-sm font-bold text-white">Approuver</button>
           </form>
         ))}

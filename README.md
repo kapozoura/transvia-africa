@@ -24,3 +24,8 @@ Next.js 14 + Supabase + Vercel. L'ancienne maquette reste archivée dans `public
 Migration `supabase/migrations/0003_autocar.sql` (tests : `supabase/testing/03_autocar_test.sql`).
 Pages : `/autocar` (recherche), `/autocar/[id]` (plan des sièges), `/autocar/billets`, `/autocar/compagnie`, `/autocar/chauffeur`.
 Les autocars doivent être approuvés par l'équipe Transvia dans `/admin`. Commission 8 %, paiement par Wallet en séquestre jusqu'à l'arrivée.
+
+## Lot 4 — VTC
+Migration `supabase/migrations/0004_vtc.sql` (tests : `supabase/testing/04_vtc_test.sql`).
+Pages : `/vtc` (commande, suivi, notation), `/vtc/chauffeur` (véhicules, en ligne, demandes, course). Véhicules approuvés dans `/admin`.
+Tarif 600 + 250 FCFA/km (min 1 000), 6 catégories, paiement Wallet en séquestre, code de prise en charge, commission 8 %.

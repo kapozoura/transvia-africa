@@ -49,3 +49,13 @@ export const BUS_DEPARTURE_LABELS: Record<string, string> = {
 };
 // Heure locale d'Abidjan (GMT) pour les champs datetime-local.
 export const toIsoZ = (local: string) => (local ? `${local}:00Z` : null);
+
+export const VTC_CATEGORY_LABELS: Record<string, string> = {
+  eco: "Éco", standard: "Standard", confort: "Confort", premium: "Premium / VIP", xl: "XL (7 places)", pmr: "Adapté PMR",
+};
+export const VTC_STATUS_LABELS: Record<string, string> = {
+  demande: "Recherche d'un chauffeur…", acceptee: "Chauffeur en route", arrivee: "Chauffeur arrivé",
+  en_cours: "Course en cours", terminee: "Terminée", annulee_passager: "Annulée par vous",
+  annulee_chauffeur: "Annulée par le chauffeur (remboursé)", expiree: "Aucun chauffeur (remboursé)",
+};
+export const VTC_ZONES = ["Plateau", "Adjamé", "Cocody", "Riviera", "Angré", "Marcory", "Treichville", "Koumassi", "Port-Bouët", "Yopougon", "Abobo", "Bingerville"];

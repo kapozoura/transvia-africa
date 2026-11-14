@@ -31,6 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <>
                   <Link href="/covoiturage" className="hover:text-amber">Covoiturage</Link>
                   <Link href="/autocar" className="hover:text-amber">Autocar</Link>
+                  <Link href="/vtc" className="hover:text-amber">VTC</Link>
                   <Link href="/compte" className="hover:text-amber">Mon compte</Link>
                   <Link href="/wallet" className="hover:text-amber">Wallet</Link>
                   <form action={signOut}>
