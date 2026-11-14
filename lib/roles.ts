@@ -35,3 +35,17 @@ export const BOOKING_STATUS_LABELS: Record<string, string> = {
 // Les horaires sont saisis et affichés à l'heure d'Abidjan (GMT).
 export const fmtDate = (iso: string) =>
   new Date(iso).toLocaleString("fr-FR", { timeZone: "Africa/Abidjan", dateStyle: "medium", timeStyle: "short" });
+
+export const BUS_BOOKING_LABELS: Record<string, string> = {
+  confirme: "Confirmé",
+  embarque: "Embarqué",
+  arrive: "Arrivé",
+  no_show: "Absent au départ",
+  annule: "Annulé par vous",
+  annule_compagnie: "Annulé par la compagnie (remboursé)",
+};
+export const BUS_DEPARTURE_LABELS: Record<string, string> = {
+  programme: "Programmé", en_route: "En route", termine: "Terminé", annule: "Annulé",
+};
+// Heure locale d'Abidjan (GMT) pour les champs datetime-local.
+export const toIsoZ = (local: string) => (local ? `${local}:00Z` : null);
