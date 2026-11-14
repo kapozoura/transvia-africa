@@ -1,7 +1,7 @@
 # Transvia Africa
 
 Plateforme de mobilité et de logistique (autocar, covoiturage, VTC, colis, fret, location, transports publics).
-Next.js 14 + Supabase + Vercel. La démo interactive reste accessible sur `/demo/index.html`.
+Next.js 14 + Supabase + Vercel. L'ancienne maquette reste archivée dans `public/demo/` (non liée au site).
 
 ## Lot 1 — Compte unique, rôles, Wallet
 - `supabase/migrations/0001_compte_unique.sql` : schéma, RPC et RLS.

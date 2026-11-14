@@ -27,7 +27,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               TRANSVIA <span className="text-amber">AFRICA</span>
             </Link>
             <div className="flex items-center gap-4">
-              <a href="/demo/index.html" className="hover:text-amber">Démo</a>
               {signedIn ? (
                 <>
                   <Link href="/covoiturage" className="hover:text-amber">Covoiturage</Link>

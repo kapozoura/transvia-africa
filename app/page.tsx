@@ -9,7 +9,7 @@ export default function Home() {
         <p className="mt-2 text-white/80">Réservez. Voyagez. Suivez. Autocar, covoiturage, VTC, colis, fret, location et transports publics — avec un seul compte et un seul Wallet.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link href="/auth/signup" className="rounded bg-amber px-4 py-2 font-bold text-navy">Créer mon compte unique</Link>
-          <a href="/demo/index.html" className="rounded border border-white/40 px-4 py-2 font-semibold">Voir la démo interactive</a>
+          <Link href="/auth/login" className="rounded border border-white/40 px-4 py-2 font-semibold">Se connecter</Link>
         </div>
       </section>
       {!configured() && (
