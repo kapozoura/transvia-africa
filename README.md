@@ -1,20 +1,16 @@
-# Transvia Africa — démo en ligne
+# Transvia Africa
 
-Démonstrateur interactif (Autocar, Covoiturage, VTC, Colis, Fret Cargo, Location, Transports publics, compte unique).
-Aucun backend : toutes les données sont des **données de démonstration** et restent dans le navigateur.
+Plateforme de mobilité et de logistique (autocar, covoiturage, VTC, colis, fret, location, transports publics).
+Next.js 14 + Supabase + Vercel. La démo interactive reste accessible sur `/demo/index.html`.
 
-## Mettre en ligne (comme Immovia : GitHub + Vercel)
+## Lot 1 — Compte unique, rôles, Wallet
+- `supabase/migrations/0001_compte_unique.sql` : schéma, RPC et RLS.
+- `supabase/testing/run_tests.sh` : 40+ tests de droits sur un Postgres 16 local.
+- Pages : `/auth/login`, `/auth/signup`, `/compte`, `/wallet`, `/admin` (équipe).
 
-1. Sur github.com, créer un dépôt **transvia-africa** (privé ou public) et y déposer ces 3 fichiers : `index.html`, `vercel.json`, `README.md`.
-2. Sur vercel.com : **Add New → Project** → importer le dépôt `transvia-africa`.
-3. Réglages : *Framework Preset* = **Other**, *Build Command* et *Output Directory* laissés vides. Cliquer **Deploy**.
-4. Vercel donne une adresse du type `transvia-africa.vercel.app`. Chaque modification poussée sur GitHub redéploie automatiquement.
-
-## Domaine
-
-*Settings → Domains* sur Vercel : ajouter par exemple `transvia.africa` ou `demo.transvia.africa` et suivre les enregistrements DNS indiqués.
-
-## À savoir
-
-- La page charge React, Tailwind et Babel depuis des CDN : un accès Internet est nécessaire pour l'ouvrir.
-- Le premier affichage prend quelques secondes (compilation dans le navigateur) ; une vraie compilation (Vite ou Next.js) l'accélérera.
+## Mise en route
+1. Créer un projet Supabase, exécuter `supabase/migrations/0001_compte_unique.sql` (SQL Editor).
+2. Vercel → Settings → Environment Variables : `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY` (voir `.env.example`). Ne jamais publier la clé `service_role`.
+3. Framework Preset Vercel : Next.js.
+4. Premier administrateur : après inscription, dans le SQL Editor :
+   `update public.profiles set staff_role = 'admin' where id = (select id from auth.users where email = 'VOTRE_EMAIL');`
