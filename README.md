@@ -29,3 +29,8 @@ Les autocars doivent être approuvés par l'équipe Transvia dans `/admin`. Comm
 Migration `supabase/migrations/0004_vtc.sql` (tests : `supabase/testing/04_vtc_test.sql`).
 Pages : `/vtc` (commande, suivi, notation), `/vtc/chauffeur` (véhicules, en ligne, demandes, course). Véhicules approuvés dans `/admin`.
 Tarif 600 + 250 FCFA/km (min 1 000), 6 catégories, paiement Wallet en séquestre, code de prise en charge, commission 8 %.
+
+## Lot 5 — Colis
+Migration `supabase/migrations/0005_colis.sql` (tests : `supabase/testing/05_colis_test.sql`).
+Pages : `/colis` (envoi, mes colis, réclamations), `/colis/envoyer/[id]`, `/colis/gare` (compagnie et chauffeur : réception, remise), `/suivi` (public, sans compte). Réclamations traitées dans `/admin`.
+Un colis (30 kg max) voyage dans un départ Autocar réel : paiement Wallet, valeur déclarée, code de retrait à 6 chiffres, commission compagnie 12 %.

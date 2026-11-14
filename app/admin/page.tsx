@@ -1,16 +1,17 @@
 import { createClient } from "@/lib/supabase/server";
 import { ROLE_LABELS } from "@/lib/roles";
-import { approveVtcVehicle, approveVehicle, decideIdentity, decideRole } from "./actions";
+import { decideClaim, approveVtcVehicle, approveVehicle, decideIdentity, decideRole } from "./actions";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage({ searchParams }: { searchParams: { ok?: string; error?: string } }) {
   const supabase = createClient();
-  const [{ data: ids }, { data: roles }, { data: vehicles }, { data: vtcVehicles }] = await Promise.all([
+  const [{ data: ids }, { data: roles }, { data: vehicles }, { data: vtcVehicles }, { data: claims }] = await Promise.all([
     supabase.from("identity_checks").select("profile_id, doc_type, doc_number, submitted_at, profiles(full_name)").eq("status", "en_attente"),
     supabase.from("profile_roles").select("profile_id, role, documents, requested_at, profiles(full_name, id_verified)").eq("status", "en_attente"),
     supabase.from("bus_vehicles").select("id, plate, model, seats, bus_companies(name)").eq("approved", false),
     supabase.from("vtc_vehicles").select("id, plate, model, category").eq("approved", false),
+    supabase.from("colis_claims").select("id, kind, description, colis_parcels(ref, declared_value_fcfa)").eq("status", "ouverte"),
   ]);
   const name = (p: unknown) => (Array.isArray(p) ? p[0]?.full_name : (p as { full_name?: string } | null)?.full_name) ?? "—";
 
@@ -70,6 +71,25 @@ export default async function AdminPage({ searchParams }: { searchParams: { ok?:
             <button name="approve" value="yes" className="rounded bg-green-600 px-3 py-1 text-sm font-bold text-white">Approuver</button>
           </form>
         ))}
+      </section>
+      <section className="space-y-2">
+        <h2 className="font-bold">Réclamations Colis ({claims?.length ?? 0})</h2>
+        {(claims ?? []).map((k) => {
+          const p = (Array.isArray(k.colis_parcels) ? k.colis_parcels[0] : k.colis_parcels) as { ref: string; declared_value_fcfa: number } | null;
+          return (
+            <form key={k.id} action={decideClaim} className="space-y-2 rounded-xl bg-white p-4 shadow-sm">
+              <input type="hidden" name="claim" value={k.id} />
+              <p className="font-semibold">{p?.ref} — {k.kind} (valeur déclarée {p?.declared_value_fcfa} FCFA)</p>
+              <p className="text-sm">{k.description}</p>
+              <div className="flex flex-wrap gap-2">
+                <input name="amount" type="number" min={1} placeholder="Indemnité (FCFA)" className="w-40 rounded border px-2 py-1" />
+                <input name="note" required placeholder="Motif de la décision" className="flex-1 rounded border px-2 py-1" />
+                <button name="decision" value="accept" className="rounded bg-green-600 px-3 py-1 text-sm font-bold text-white">Indemniser</button>
+                <button name="decision" value="reject" className="rounded border border-red-600 px-3 py-1 text-sm font-bold text-red-700">Rejeter</button>
+              </div>
+            </form>
+          );
+        })}
       </section>
     </div>
   );

@@ -59,3 +59,16 @@ export const VTC_STATUS_LABELS: Record<string, string> = {
   annulee_chauffeur: "Annulée par le chauffeur (remboursé)", expiree: "Aucun chauffeur (remboursé)",
 };
 export const VTC_ZONES = ["Plateau", "Adjamé", "Cocody", "Riviera", "Angré", "Marcory", "Treichville", "Koumassi", "Port-Bouët", "Yopougon", "Abobo", "Bingerville"];
+
+export const COLIS_STATUS_LABELS: Record<string, string> = {
+  enregistre: "Enregistré : à déposer en gare", depose: "Déposé en gare", en_transit: "En transit",
+  arrive: "Arrivé : prêt pour le retrait", livre: "Livré", annule: "Annulé (remboursé)",
+};
+export const COLIS_SERVICE_LABELS: Record<string, string> = {
+  standard: "Standard", express: "Express", fragile: "Fragile", express_fragile: "Express + Fragile",
+};
+export const COLIS_TIER_LABELS: Record<string, string> = {
+  standard: "Standard (10 %, jusqu'à 50 000 FCFA)", etendue: "Étendue (15 %, jusqu'à 200 000 FCFA)", premium: "Premium (20 %, jusqu'à 1 000 000 FCFA)",
+};
+export const COLIS_SIZE_LABELS: Record<string, string> = { petit: "Petit (≤ 5 kg)", moyen: "Moyen (≤ 15 kg)", grand: "Grand (≤ 30 kg)" };
+export const COLIS_CLAIM_LABELS: Record<string, string> = { retard: "Retard", perdu: "Colis perdu", endommage: "Endommagé", altere: "Ouvert / altéré" };
