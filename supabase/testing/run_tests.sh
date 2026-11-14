@@ -6,6 +6,6 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 DB=transvia_test
 PSQL="psql -v ON_ERROR_STOP=1 -q -X"
 su postgres -c "psql -q -X -c 'drop database if exists $DB' -c 'create database $DB'"
-for f in "$DIR/00_supabase_stub.sql" "$DIR/00b_roles_stub.sql" "$DIR"/../migrations/*.sql "$DIR/01_compte_unique_test.sql"; do
+for f in "$DIR/00_supabase_stub.sql" "$DIR/00b_roles_stub.sql" "$DIR"/../migrations/0001_compte_unique.sql "$DIR/01_compte_unique_test.sql" "$DIR"/../migrations/0002_covoiturage.sql "$DIR/02_covoiturage_test.sql"; do
   su postgres -c "$PSQL -d $DB -f '$f'" 2>&1 | grep -v "^$" || true
 done
