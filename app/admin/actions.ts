@@ -50,3 +50,14 @@ export async function approveVtcVehicle(formData: FormData) {
   if (error) done("error", error.message);
   done("ok", "Décision sur le véhicule VTC enregistrée.");
 }
+
+export async function decideClaim(formData: FormData) {
+  const accept = formData.get("decision") === "accept";
+  const { error } = await createClient().rpc("colis_decide_claim", {
+    p_claim: String(formData.get("claim")), p_accept: accept,
+    p_amount: accept ? Number(formData.get("amount")) : null, p_note: String(formData.get("note") ?? ""),
+  });
+  revalidatePath("/admin");
+  if (error) done("error", error.message);
+  done("ok", "Décision sur la réclamation enregistrée.");
+}
